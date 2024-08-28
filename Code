@@ -1,0 +1,116 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Wallpaper Hub</title>
+    <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+    <header>
+        <h1>Wallpaper Hub</h1>
+        <input type="text" id="search-bar" placeholder="Search wallpapers...">
+    </header>
+    <section id="categories">
+        <h2>Categories</h2>
+        <div class="category">Nature</div>
+        <div class="category">Abstract</div>
+        <div class="category">Gaming</div>
+        <div class="category">Movies</div>
+    </section>
+    <section id="popular-wallpapers">
+        <h2>Popular Wallpapers</h2>
+        <div class="wallpaper-grid" id="wallpaper-grid">
+            <!-- JavaScript will dynamically insert wallpapers here -->
+        </div>
+    </section>
+    <script src="scripts.js"></script>
+</body>
+</html>
+
+
+
+css
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f4f4f4;
+}
+
+header {
+    background-color: #333;
+    color: white;
+    padding: 20px;
+    text-align: center;
+}
+
+#search-bar {
+    width: 80%;
+    padding: 10px;
+    margin-top: 20px;
+}
+
+#categories, #popular-wallpapers {
+    margin: 20px;
+    padding: 20px;
+}
+
+.category {
+    display: inline-block;
+    background-color: #555;
+    color: white;
+    padding: 10px;
+    margin: 10px;
+    cursor: pointer;
+}
+
+.wallpaper-grid {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+}
+
+.wallpaper {
+    width: 200px;
+    height: 150px;
+    background-size: cover;
+    background-position: center;
+    cursor: pointer;
+}
+
+
+JavaScript 
+
+
+const wallpapers = [
+    { category: 'Nature', url: 'nature1.jpg' },
+    { category: 'Nature', url: 'nature2.jpg' },
+    { category: 'Abstract', url: 'abstract1.jpg' },
+    { category: 'Gaming', url: 'gaming1.jpg' },
+    { category: 'Movies', url: 'movies1.jpg' }
+];
+
+const wallpaperGrid = document.getElementById('wallpaper-grid');
+
+wallpapers.forEach(wallpaper => {
+    const div = document.createElement('div');
+    div.className = 'wallpaper';
+    div.style.backgroundImage = `url(${wallpaper.url})`;
+    wallpaperGrid.appendChild(div);
+});
+
+document.getElementById('search-bar').addEventListener('input', function(e) {
+    const searchText = e.target.value.toLowerCase();
+    const filteredWallpapers = wallpapers.filter(wallpaper => wallpaper.category.toLowerCase().includes(searchText));
+
+    wallpaperGrid.innerHTML = '';  // Clear existing wallpapers
+
+    filteredWallpapers.forEach(wallpaper => {
+        const div = document.createElement('div');
+        div.className = 'wallpaper';
+        div.style.backgroundImage = `url(${wallpaper.url})`;
+        wallpaperGrid.appendChild(div);
+    });
+});
